@@ -23,8 +23,8 @@ Run part A or B
 ## 3. Puzzle descriptions
 
 1. Starting off easy with some simple calculations
-2.
-3.
+2. Abs + sign to calculate whether or not a report is safe.
+3. Look in computer memory instructions string for MUL(x,y) with some regexes
 4.
 5.
 6.
