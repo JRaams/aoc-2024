@@ -25,8 +25,8 @@ Run part A or B
 1. Starting off easy with some simple calculations
 2. Abs + sign to calculate whether or not a report is safe.
 3. Look in computer memory instructions string for MUL(x,y) with some regexes
-4.
-5.
+4. Finding X-MAS patterns in a grid of characters
+5. Ordering pages according to a ruleset, basic sorting a algorithm
 6.
 7.
 8.
