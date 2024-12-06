@@ -37,12 +37,14 @@ export function findVisited(
 }
 
 export function detectLoop(g: string[][], py: number, px: number): boolean {
-  const visited = new Set<string>();
+  const visited = new Set<number>();
   let dy = -1;
   let dx = 0;
 
   while (true) {
-    const key = `${py}_${px}_${dy}_${dx}`;
+    const key =
+      (py * 10000169) ^ (px * 23573527) ^ (dy * 587523659) ^ (dx * 91812151);
+
     if (visited.has(key)) return true;
     visited.add(key);
 
