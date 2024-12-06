@@ -1,31 +1,59 @@
-export const DELTAS = [
-  [-1, 0], // up
-  [0, 1], // right
-  [1, 0], // bottom
-  [0, -1], // left
-];
-
-export function loadGrid(input: string[]) {
-  const grid: string[][] = [];
-
-  let playerY = 0;
-  let playerX = 0;
-
-  for (let y = 0; y < input.length; y++) {
-    grid.push([]);
-    for (let x = 0; x < input[y].length; x++) {
-      grid[y][x] = input[y][x];
-      if (input[y][x] === "^") {
-        playerY = y;
-        playerX = x;
-        grid[y][x] = ".";
+export function findPlayer(grid: string[][]): [number, number] {
+  for (let y = 0; y < grid.length; y++) {
+    for (let x = 0; x < grid[y].length; x++) {
+      if (grid[y][x] === "^") {
+        return [y, x];
       }
     }
   }
 
-  return {
-    grid,
-    playerY,
-    playerX,
-  };
+  throw new Error("unable to find player position");
+}
+
+export function findVisited(
+  grid: string[][],
+  playerY: number,
+  playerX: number
+): Set<string> {
+  const visited = new Set<string>();
+  let dy = -1;
+  let dx = 0;
+
+  while (true) {
+    visited.add(`${playerY}_${playerX}`);
+
+    const newTile = grid[playerY + dy]?.[playerX + dx];
+    if (newTile === undefined) break;
+
+    if (newTile === "#") {
+      [dx, dy] = [-dy, dx];
+    } else {
+      playerY += dy;
+      playerX += dx;
+    }
+  }
+
+  return visited;
+}
+
+export function detectLoop(g: string[][], py: number, px: number): boolean {
+  const visited = new Set<string>();
+  let dy = -1;
+  let dx = 0;
+
+  while (true) {
+    const key = `${py}_${px}_${dy}_${dx}`;
+    if (visited.has(key)) return true;
+    visited.add(key);
+
+    const newTile = g[py + dy]?.[px + dx];
+    if (newTile === undefined) return false;
+
+    if (newTile === "#") {
+      [dx, dy] = [-dy, dx];
+    } else {
+      py += dy;
+      px += dx;
+    }
+  }
 }
