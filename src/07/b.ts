@@ -9,27 +9,23 @@ input.forEach((line) => {
   const test = Number(testRaw);
   const numbers = numbersRaw.split(" ").map(Number);
 
-  if (possibilities(test, numbers.slice(1), numbers[0])) {
+  function isValid(start: number, i: number): boolean {
+    if (start > test) return false;
+
+    if (i++ === numbers.length - 1) {
+      return start === test;
+    }
+
+    return (
+      isValid(start + numbers[i], i) ||
+      isValid(start * numbers[i], i) ||
+      isValid(Number(start + "" + numbers[i]), i)
+    );
+  }
+
+  if (isValid(numbers[0], 0)) {
     result += test;
   }
 });
 
 console.log(result);
-
-function possibilities(test: number, nums: number[], start: number): number {
-  if (nums.length === 0) {
-    return start === test ? 1 : 0;
-  }
-
-  const add = possibilities(test, nums.slice(1), start + nums[0]);
-
-  const multiply = possibilities(test, nums.slice(1), start * nums[0]);
-
-  const concat = possibilities(
-    test,
-    nums.slice(1),
-    Number(start + "" + nums[0])
-  );
-
-  return add + multiply + concat;
-}
