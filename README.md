@@ -28,7 +28,7 @@ Run part A or B
 4. 💫️💫️🌑️🌑️🌑️ Finding X-MAS patterns in a grid of characters
 5. 💫️💫️🌑️🌑️🌑️ Ordering pages according to a ruleset, basic sorting a algorithm
 6. 💫️💫️💫️🌑️🌑️ Grid walking until out of bounds + cycle prediction
-7.
+7. 💫️💫️🌑️🌑️🌑️ Recursion for calculating all possible number equation outcomes using operators (+, \*, ||).
 8.
 9.
 10.
