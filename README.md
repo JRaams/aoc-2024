@@ -26,10 +26,10 @@ Run part A or B
 2. 💫️🌑️🌑️🌑️🌑️ Abs + sign to calculate whether or not a report is safe.
 3. 💫️🌑️🌑️🌑️🌑️ Look in computer memory instructions string for MUL(x,y) with some regexes
 4. 💫️💫️🌑️🌑️🌑️ Finding X-MAS patterns in a grid of characters
-5. 💫️💫️🌑️🌑️🌑️ Ordering pages according to a ruleset, basic sorting a algorithm
+5. 💫️💫️🌑️🌑️🌑️ Ordering pages according to a ruleset, basic sorting algorithm
 6. 💫️💫️💫️🌑️🌑️ Grid walking until out of bounds + cycle prediction
 7. 💫️💫️🌑️🌑️🌑️ Recursion for calculating all possible number equation outcomes using operators (+, \*, ||).
-8.
+8. 💫️💫️🌑️🌑️🌑️ Finding antinodes in a grid of antennas with different frequencies
 9.
 10.
 11.

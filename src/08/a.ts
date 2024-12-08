@@ -25,16 +25,17 @@ const antinodes = new Set<string>();
 frequencies.values().forEach((coords) => {
   for (let i = 0; i < coords.length; i++) {
     for (let j = i + 1; j < coords.length; j++) {
-      const [ya1, xa1] = coords[i];
-      const [ya2, xa2] = coords[j];
+      let [y1, x1] = coords[i];
+      let [y2, x2] = coords[j];
 
-      const dy = ya2 - ya1;
-      const dx = xa2 - xa1;
+      const dy = y2 - y1;
+      const dx = x2 - x1;
 
-      let [yn1, xn1] = [ya1 - dy, xa1 - dx];
-      let [yn2, xn2] = [ya2 + dy, xa2 + dx];
-      if (grid[yn1]?.[xn1]) antinodes.add(`${yn1}_${xn1}`);
-      if (grid[yn2]?.[xn2]) antinodes.add(`${yn2}_${xn2}`);
+      [y1, x1] = [y1 - dy, x1 - dx];
+      if (grid[y1]?.[x1]) antinodes.add(`${y1}_${x1}`);
+
+      [y2, x2] = [y2 + dy, x2 + dx];
+      if (grid[y2]?.[x2]) antinodes.add(`${y2}_${x2}`);
     }
   }
 });
