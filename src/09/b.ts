@@ -10,22 +10,20 @@ type Block = {
 
 function loadBlocks(input: number[]): Block[] {
   let blocks: Block[] = [];
-  let isFree = false;
   let id = 0;
   let pos = 0;
 
   for (let i = 0; i < input.length; i++) {
     blocks.push({
-      id: isFree ? null : id,
+      id: i % 2 === 0 ? id : null,
       start: pos,
       length: input[i],
     });
 
-    if (isFree) {
+    if (i % 2 === 0) {
       id++;
     }
 
-    isFree = !isFree;
     pos += input[i];
   }
 

@@ -4,41 +4,32 @@ const input = lines.trim().split("").map(Number);
 
 // 1. Load blocks
 
-let blocks: string[] = [];
-let isFree = false;
+let blocks: number[] = [];
 let id = 0;
 
 for (let i = 0; i < input.length; i++) {
   for (let j = 0; j < input[i]; j++) {
-    blocks.push(isFree ? "." : id.toString());
+    blocks.push(i % 2 === 0 ? id : -1);
   }
-  if (isFree) {
+
+  if (i % 2 === 0) {
     id++;
   }
-  isFree = !isFree;
 }
 
 // 2. Move blocks
 
-for (let i = 0; i < blocks.length; i++) {
-  if (blocks[i] !== ".") continue;
+const len = blocks.length;
+for (let i = 0; i < len; i++) {
+  while (blocks.at(-1) === -1) blocks.pop();
 
-  for (let j = blocks.length - 1; j > i; j--) {
-    if (blocks[j] === ".") continue;
-    blocks[i] = blocks[j];
-    blocks[j] = ".";
-    break;
-  }
+  if (blocks[i] !== -1) continue;
+
+  blocks[i] = blocks.pop()!;
 }
-
-const disk = blocks.filter((x) => x !== ".");
 
 // 3. Calculate checksum
 
-let sum = 0;
-
-for (let i = 0; i < disk.length; i++) {
-  sum += i * Number(disk[i]);
-}
+let sum = blocks.reduce((sum, id, index) => sum + id * index, 0);
 
 console.log(sum);
