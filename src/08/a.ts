@@ -22,11 +22,11 @@ for (let y = 0; y < grid.length; y++) {
 
 const antinodes = new Set<string>();
 
-frequencies.values().forEach((coords) => {
-  for (let i = 0; i < coords.length; i++) {
-    for (let j = i + 1; j < coords.length; j++) {
-      let [y1, x1] = coords[i];
-      let [y2, x2] = coords[j];
+frequencies.values().forEach((antennas) => {
+  for (let i = 0; i < antennas.length; i++) {
+    for (let j = i + 1; j < antennas.length; j++) {
+      let [y1, x1] = antennas[i];
+      let [y2, x2] = antennas[j];
 
       const dy = y2 - y1;
       const dx = x2 - x1;
