@@ -30,7 +30,7 @@ Run part A or B
 6. 💫️💫️💫️🌑️🌑️ Grid walking until out of bounds + cycle prediction
 7. 💫️💫️🌑️🌑️🌑️ Recursion for calculating all possible number equation outcomes using operators (+, \*, ||).
 8. 💫️💫️🌑️🌑️🌑️ Finding antinodes in a grid of antennas with different frequencies
-9. 💫️💫️💫️💫️🌑️ Filesystem disk / block fragmenter
+9. 💫️💫️💫️💫️🌑️ Filesystem disk / block defragmenter
 10.
 11.
 12.
