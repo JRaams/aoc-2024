@@ -4,13 +4,13 @@ const input = lines.trim().split("").map(Number);
 
 // 1. Load blocks
 
-let blocks = [];
+let blocks: string[] = [];
 let isFree = false;
 let id = 0;
 
 for (let i = 0; i < input.length; i++) {
   for (let j = 0; j < input[i]; j++) {
-    blocks.push(isFree ? "." : id);
+    blocks.push(isFree ? "." : id.toString());
   }
   if (isFree) {
     id++;
@@ -31,14 +31,14 @@ for (let i = 0; i < blocks.length; i++) {
   }
 }
 
-const disk = blocks.filter((x) => x !== ".") as number[];
+const disk = blocks.filter((x) => x !== ".");
 
 // 3. Calculate checksum
 
 let sum = 0;
 
 for (let i = 0; i < disk.length; i++) {
-  sum += i * disk[i];
+  sum += i * Number(disk[i]);
 }
 
 console.log(sum);
