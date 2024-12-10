@@ -31,7 +31,7 @@ Run part A or B
 7. 💫️💫️🌑️🌑️🌑️ Recursion for calculating all possible number equation outcomes using operators (+, \*, ||).
 8. 💫️💫️🌑️🌑️🌑️ Finding antinodes in a grid of antennas with different frequencies
 9. 💫️💫️💫️💫️🌑️ Filesystem disk / block defragmenter
-10.
+10. 💫️💫️🌑️🌑️🌑️ Finding all possible routes in a heightmap grid
 11.
 12.
 13.
