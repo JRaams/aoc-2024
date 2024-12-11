@@ -10,29 +10,23 @@ function count(stone: number, steps: number): number {
     return cache.get(key)!;
   }
 
-  if (steps === 0) {
-    cache.set(key, 1);
-    return 1;
-  }
-
-  if (stone === 0) {
-    const r = count(1, steps - 1);
-    cache.set(key, r);
-    return r;
-  }
-
+  let result = 0;
   const str = stone.toString();
-  if (str.length % 2 === 0) {
+
+  if (steps === 0) {
+    result = 1;
+  } else if (stone === 0) {
+    result = count(1, steps - 1);
+  } else if (str.length % 2 === 0) {
     const a = Number(str.substring(0, str.length / 2));
     const b = Number(str.substring(str.length / 2));
-    const r = count(a, steps - 1) + count(b, steps - 1);
-    cache.set(key, r);
-    return r;
+    result = count(a, steps - 1) + count(b, steps - 1);
+  } else {
+    result = count(stone * 2024, steps - 1);
   }
 
-  const r = count(stone * 2024, steps - 1);
-  cache.set(key, r);
-  return r;
+  cache.set(key, result);
+  return result;
 }
 
 let resulta = input.reduce((total, i) => total + count(i, 25), 0);

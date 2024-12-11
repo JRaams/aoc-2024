@@ -32,7 +32,7 @@ Run part A or B
 8. 💫️💫️🌑️🌑️🌑️ Finding antinodes in a grid of antennas with different frequencies
 9. 💫️💫️💫️💫️🌑️ Filesystem disk / block defragmenter
 10. 💫️💫️🌑️🌑️🌑️ Finding all possible routes in a heightmap grid
-11.
+11. 💫️💫️🌑️🌑️🌑️ Applying rules to a line of rocks, like a growing 1d game of life. ([2021 day 6](https://adventofcode.com/2021/day/6))
 12.
 13.
 14.
