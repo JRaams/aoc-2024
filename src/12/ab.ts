@@ -9,7 +9,7 @@ const regions = new Map<number, [number, number][]>();
 
 const seen = new Set<string>();
 
-const perimiters: number[][] = Array.from({ length: grid.length }, () =>
+const perimeters: number[][] = Array.from({ length: grid.length }, () =>
   new Array(grid[0].length).fill(0)
 );
 
@@ -22,32 +22,35 @@ let regionId = 0;
 for (let y = 0; y < grid.length; y++) {
   for (let x = 0; x < grid[y].length; x++) {
     const c = grid[y][x];
+
+    // 1. perimeters
     const top = grid[y - 1]?.[x];
     const right = grid[y][x + 1];
     const bottom = grid[y + 1]?.[x];
     const left = grid[y][x - 1];
 
-    if (top !== c) perimiters[y][x]++;
-    if (right !== c) perimiters[y][x]++;
-    if (bottom !== c) perimiters[y][x]++;
-    if (left !== c) perimiters[y][x]++;
+    for (const dir of [top, right, bottom, left]) {
+      if (dir !== c) perimeters[y][x]++;
+    }
 
-    if (top !== c && left !== c) corners[y][x]++;
-    if (top === c && left === c && grid[y - 1]?.[x - 1] !== c) corners[y][x]++;
+    // 2. corners
+    const topLeft = grid[y - 1]?.[x - 1];
+    const topRight = grid[y - 1]?.[x + 1];
+    const bottomRight = grid[y + 1]?.[x + 1];
+    const bottomLeft = grid[y + 1]?.[x - 1];
 
-    if (top !== c && right !== c) corners[y][x]++;
-    if (top === c && right === c && grid[y - 1]?.[x + 1] !== c) corners[y][x]++;
+    for (const { a, b, corner } of [
+      { a: top, b: left, corner: topLeft },
+      { a: top, b: right, corner: topRight },
+      { a: bottom, b: right, corner: bottomRight },
+      { a: bottom, b: left, corner: bottomLeft },
+    ]) {
+      if (a !== c && b !== c) corners[y][x]++;
+      else if (a === c && b === c && corner !== c) corners[y][x]++;
+    }
 
-    if (bottom !== c && right !== c) corners[y][x]++;
-    if (bottom === c && right === c && grid[y + 1]?.[x + 1] !== c)
-      corners[y][x]++;
-
-    if (bottom !== c && left !== c) corners[y][x]++;
-    if (bottom === c && left === c && grid[y + 1]?.[x - 1] !== c)
-      corners[y][x]++;
-
-    const key = `${y}_${x}`;
-    if (seen.has(key)) continue;
+    // 3. regionId
+    if (seen.has(`${y}_${x}`)) continue;
 
     const queue: [number, number][] = [[y, x]];
 
@@ -56,17 +59,18 @@ for (let y = 0; y < grid.length; y++) {
 
     while (queue.length) {
       const [ny, nx] = queue.pop()!;
+      const key = `${ny}_${nx}`;
 
       if (
         grid[ny] === undefined ||
-        seen.has(`${ny}_${nx}`) ||
+        seen.has(key) ||
         grid[ny][nx] !== grid[y][x]
       ) {
         continue;
       }
 
       region.push([ny, nx]);
-      seen.add(`${ny}_${nx}`);
+      seen.add(key);
       queue.push([ny - 1, nx], [ny, nx + 1], [ny + 1, nx], [ny, nx - 1]);
     }
   }
@@ -79,7 +83,7 @@ regions.values().forEach((region) => {
   const area = region.length;
 
   const perimiter = region
-    .map(([y, x]) => perimiters[y][x])
+    .map(([y, x]) => perimeters[y][x])
     .reduce((a, b) => a + b, 0);
 
   const sides = region
