@@ -33,7 +33,7 @@ Run part A or B
 9. 💫️💫️💫️💫️🌑️ Filesystem disk / block defragmenter
 10. 💫️💫️🌑️🌑️🌑️ Finding all possible routes in a heightmap grid
 11. 💫️💫️🌑️🌑️🌑️ Applying rules to a line of rocks, like a growing 1d game of life. ([2021 day 6](https://adventofcode.com/2021/day/6))
-12.
+12. 💫️💫️💫️💫️🌑️ Calculating area / perimeter of weirdly shaped plots of land in a grid
 13.
 14.
 15.

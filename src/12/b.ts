@@ -11,6 +11,7 @@ type Plot = {
   x: number;
   areaId: number | null;
   perimiter: number;
+  corners: number;
 };
 
 const plots: Plot[][] = [];
@@ -19,12 +20,31 @@ for (let y = 0; y < grid.length; y++) {
   plots.push([]);
   for (let x = 0; x < grid[y].length; x++) {
     const c = grid[y][x];
-    const plot: Plot = { c, y, x, areaId: null, perimiter: 0 };
+    const plot: Plot = { c, y, x, areaId: null, perimiter: 0, corners: 0 };
 
-    if (grid[y - 1]?.[x] !== c) plot.perimiter++;
-    if (grid[y][x + 1] !== c) plot.perimiter++;
-    if (grid[y + 1]?.[x] !== c) plot.perimiter++;
-    if (grid[y][x - 1] !== c) plot.perimiter++;
+    const top = grid[y - 1]?.[x];
+    const right = grid[y][x + 1];
+    const bottom = grid[y + 1]?.[x];
+    const left = grid[y][x - 1];
+
+    if (top !== c) plot.perimiter++;
+    if (right !== c) plot.perimiter++;
+    if (bottom !== c) plot.perimiter++;
+    if (left !== c) plot.perimiter++;
+
+    if (top !== c && left !== c) plot.corners++;
+    if (top === c && left === c && grid[y - 1]?.[x - 1] !== c) plot.corners++;
+
+    if (top !== c && right !== c) plot.corners++;
+    if (top === c && right === c && grid[y - 1]?.[x + 1] !== c) plot.corners++;
+
+    if (bottom !== c && right !== c) plot.corners++;
+    if (bottom === c && right === c && grid[y + 1]?.[x + 1] !== c)
+      plot.corners++;
+
+    if (bottom !== c && left !== c) plot.corners++;
+    if (bottom === c && left === c && grid[y + 1]?.[x - 1] !== c)
+      plot.corners++;
 
     plots[y].push(plot);
   }
@@ -68,7 +88,7 @@ for (let i = 1; i <= areaId; i++) {
   });
 
   const area = ps.length;
-  const perimiter = ps.map((x) => x.perimiter).reduce((a, b) => a + b, 0);
+  const perimiter = ps.map<number>((x) => x.corners).reduce((a, b) => a + b, 0);
   total += area * perimiter;
 }
 
