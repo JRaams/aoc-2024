@@ -34,7 +34,7 @@ Run part A or B
 10. 💫️💫️🌑️🌑️🌑️ Finding all possible routes in a heightmap grid
 11. 💫️💫️🌑️🌑️🌑️ Applying rules to a line of rocks, like a growing 1d game of life. ([2021 day 6](https://adventofcode.com/2021/day/6))
 12. 💫️💫️💫️💫️🌑️ Calculating area / perimeter of weirdly shaped plots of land in a grid
-13.
+13. 💫️💫️💫️💫️🌑️ Using Cramer's rule to calculate a system of two equations
 14.
 15.
 16.
