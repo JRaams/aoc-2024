@@ -4,6 +4,8 @@ https://adventofcode.com/2024 by [Eric Wastl](http://was.tl/)
 
 Solutions using TypeScript with Bun (v1.1.38)
 
+![day 14 part 2 result: christmas tree](./src/14/tree.png)
+
 ## 1. Requirements
 
 - Bun https://bun.sh/docs/installation
@@ -15,6 +17,8 @@ Solutions using TypeScript with Bun (v1.1.38)
 Go to the folder of a specific day:
 
 `cd src/01`
+
+Create the file `input.txt` and paste aoc puzzle input
 
 Run part A or B
 

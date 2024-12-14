@@ -27,7 +27,7 @@ const robots = input.map<Robot>((line) => {
 const GRID_HEIGHT = 103;
 const GRID_WIDTH = 101;
 
-for (let i = 1; i < 10000; i++) {
+outer: for (let i = 1; ; i++) {
   robots.forEach((robot) => {
     robot.px += robot.vx;
     if (robot.px < 0) robot.px += GRID_WIDTH;
@@ -38,7 +38,34 @@ for (let i = 1; i < 10000; i++) {
     if (robot.py >= GRID_HEIGHT) robot.py -= GRID_HEIGHT;
   });
 
-  const grid = robotDensity(robots);
+  for (let a = 0; a < robots.length; a++) {
+    for (let b = a + 1; b < robots.length; b++) {
+      if (robots[a].px === robots[b].px && robots[a].py === robots[b].py) {
+        continue outer;
+      }
+    }
+  }
+
+  console.log(i);
+
+  await saveGridAsImage();
+
+  break;
+}
+
+async function saveGridAsImage() {
+  let grid: number[][] = [];
+  for (let y = 0; y < GRID_HEIGHT; y++) {
+    grid.push([]);
+    for (let x = 0; x < GRID_WIDTH; x++) {
+      grid[y].push(0);
+    }
+  }
+
+  for (const r of robots) {
+    grid[r.py][r.px] = 255;
+  }
+
   const flat = grid.flat();
   const imageBuffer = Uint8Array.from(flat);
 
@@ -50,20 +77,5 @@ for (let i = 1; i < 10000; i++) {
     },
   })
     .toFormat("png")
-    .toFile(`./img/${i}.png`);
-}
-
-function robotDensity(robots: Robot[]): number[][] {
-  let d: number[][] = [];
-  for (let y = 0; y < GRID_HEIGHT; y++) {
-    d.push([]);
-    for (let x = 0; x < GRID_WIDTH; x++) {
-      d[y].push(0);
-    }
-  }
-
-  for (const r of robots) {
-    d[r.py][r.px] = 255;
-  }
-  return d;
+    .toFile(__dirname + "/tree.png");
 }
