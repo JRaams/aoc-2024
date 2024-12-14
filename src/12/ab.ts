@@ -7,8 +7,6 @@ const grid: string[][] = lines
 
 const regions = new Map<number, [number, number][]>();
 
-const seen = new Set<string>();
-
 const perimeters: number[][] = Array.from({ length: grid.length }, () =>
   new Array(grid[0].length).fill(0)
 );
@@ -17,6 +15,7 @@ const corners: number[][] = Array.from({ length: grid.length }, () =>
   new Array(grid[0].length).fill(0)
 );
 
+const seen = new Set<string>();
 let regionId = 0;
 
 for (let y = 0; y < grid.length; y++) {
@@ -49,11 +48,8 @@ for (let y = 0; y < grid.length; y++) {
       else if (a === c && b === c && corner !== c) corners[y][x]++;
     }
 
-    // 3. regionId
-    if (seen.has(`${y}_${x}`)) continue;
-
+    // 3. region
     const queue: [number, number][] = [[y, x]];
-
     const region: [number, number][] = [];
     regions.set(regionId++, region);
 
@@ -61,11 +57,7 @@ for (let y = 0; y < grid.length; y++) {
       const [ny, nx] = queue.pop()!;
       const key = `${ny}_${nx}`;
 
-      if (
-        grid[ny] === undefined ||
-        seen.has(key) ||
-        grid[ny][nx] !== grid[y][x]
-      ) {
+      if (seen.has(key) || grid[ny]?.[nx] !== grid[y][x]) {
         continue;
       }
 
@@ -82,7 +74,7 @@ let b = 0;
 regions.values().forEach((region) => {
   const area = region.length;
 
-  const perimiter = region
+  const perimeter = region
     .map(([y, x]) => perimeters[y][x])
     .reduce((a, b) => a + b, 0);
 
@@ -90,7 +82,7 @@ regions.values().forEach((region) => {
     .map(([y, x]) => corners[y][x])
     .reduce((a, b) => a + b, 0);
 
-  a += area * perimiter;
+  a += area * perimeter;
   b += area * sides;
 });
 
