@@ -1,27 +1,15 @@
 import sharp from "sharp";
+import { nums } from "../../helpers/input";
 
 const __dirname = new URL(".", import.meta.url).pathname;
 const lines = await Bun.file(__dirname + "/input.txt").text();
 const input = lines.trim().split("\n");
 
-type Robot = {
-  px: number;
-  py: number;
-  vx: number;
-  vy: number;
-};
+type Robot = { px: number; py: number; vx: number; vy: number };
 
 const robots = input.map<Robot>((line) => {
-  const [_, px, py, vx, vy] = line
-    .match(/p=(\d+),(\d+) v=(-?\d+),(-?\d+)/)!
-    .map(Number);
-
-  return {
-    px,
-    py,
-    vx,
-    vy,
-  };
+  const [px, py, vx, vy] = nums(line);
+  return { px, py, vx, vy };
 });
 
 const GRID_HEIGHT = 103;
