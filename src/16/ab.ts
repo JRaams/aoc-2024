@@ -1,3 +1,4 @@
+import { defaultDict } from "../../helpers/defaultdict";
 import { Heap } from "../../helpers/heap";
 
 const __dirname = new URL(".", import.meta.url).pathname;
@@ -11,20 +12,14 @@ const STARTX = 1;
 const STARTY = grid.length - 2;
 const ENDX = grid[0].length - 2;
 const ENDY = 1;
-const DIRECTIONS = [
-  [0, 1],
-  [1, 0],
-  [0, -1],
-  [-1, 0],
-];
 
-export class Node {
+export class Tile {
   y: number;
   x: number;
   dy: number;
   dx: number;
   steps: number;
-  path: Node[];
+  path: Tile[];
 
   constructor(
     y: number,
@@ -32,7 +27,7 @@ export class Node {
     dy: number,
     dx: number,
     steps: number,
-    path: Node[]
+    path: Tile[]
   ) {
     this.y = y;
     this.x = x;
@@ -47,61 +42,43 @@ export class Node {
   }
 }
 
-const visited = new Map<string, number>();
-const openSet = new Heap<Node>(
+const visited = defaultDict(() => Number.MAX_SAFE_INTEGER);
+const openSet = new Heap<Tile>(
   (a, b) => a.steps - b.steps,
-  [new Node(STARTY, STARTX, 0, 1, 0, [])]
+  [new Tile(STARTY, STARTX, 0, 1, 0, [])]
 );
 
 const bestTiles = new Set<string>();
 let minSteps = Number.MAX_SAFE_INTEGER;
 
 while (!openSet.isEmpty()) {
-  const node = openSet.pop()!;
-  const { y, x, dy, dx, steps, path: oldPath } = node;
+  const tile = openSet.pop()!;
+  const { y, x, dy, dx, steps, path: oldPath } = tile;
+
+  const key = tile.toString();
+  if (steps > visited[key]) continue;
+  visited[key] = steps;
+
   const path = oldPath.slice();
-  path.push(node);
-
-  const key = node.toString();
-  if (!visited.has(key)) {
-    visited.set(key, Number.MAX_SAFE_INTEGER);
-  }
-
-  if (steps > visited.get(key)!) continue;
-  visited.set(key, steps);
+  path.push(tile);
 
   if (y === ENDY && x === ENDX) {
-    if (steps > minSteps) continue;
+    if (steps > minSteps) break;
     minSteps = steps;
 
     bestTiles.add(`${y}_${x}`);
-    node.path.forEach((p) => {
+    tile.path.forEach((p) => {
       bestTiles.add(`${p.y}_${p.x}`);
     });
 
     continue;
   }
 
-  for (const [newDy, newDx] of DIRECTIONS) {
-    const sameDir = newDy === dy && newDx === dx;
-
-    const nextY = y + newDy;
-    const nextX = x + newDx;
-    if (grid[nextY][nextX] === "#") continue;
-
-    const nextNode = new Node(
-      nextY,
-      nextX,
-      newDy,
-      newDx,
-      sameDir ? steps + 1 : steps + 1001,
-      path.slice()
-    );
-
-    if (!visited.has(nextNode.toString())) {
-      openSet.insert(nextNode);
-    }
+  if (grid[y + dy][x + dx] !== "#") {
+    openSet.insert(new Tile(y + dy, x + dx, dy, dx, steps + 1, path));
   }
+  openSet.insert(new Tile(y, x, dx, -dy, steps + 1000, path));
+  openSet.insert(new Tile(y, x, -dx, dy, steps + 1000, path));
 }
 
 function printGrid() {
@@ -127,7 +104,7 @@ function printGrid() {
     console.log(str);
   }
 }
-printGrid();
+// printGrid();
 
 console.log("a", minSteps);
 console.log("b", bestTiles.size);
