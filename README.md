@@ -39,9 +39,9 @@ Run part A or B
 11. 💫️💫️🌑️🌑️🌑️ Applying rules to a line of rocks, like a growing 1d game of life. ([2021 day 6](https://adventofcode.com/2021/day/6))
 12. 💫️💫️💫️💫️🌑️ Calculating area / perimeter of weirdly shaped plots of land in a grid
 13. 💫️💫️💫️💫️🌑️ Using Cramer's rule to calculate a system of two equations
-14. 💫️💫️💫️🌑️🌑️ Infinitely moving robots in a 2d grid with a cycling pattern that sometimes ends up creating a picture of a christmas tree.
+14. 💫️💫️💫️🌑️🌑️ Infinitely moving robots in a 2D grid with a cycling pattern that sometimes ends up creating a picture of a christmas tree.
 15. 💫️💫️💫️🌑️🌑️ Predicting a robots position in a 2D warehouse grid. The robot is capable of moving multi cell objects.
-16.
+16. 💫️💫️💫️💫️🌑️ Finding all possible paths in a 2D grid where turning is 1000x more expensive than going straight.
 17.
 18.
 19.
