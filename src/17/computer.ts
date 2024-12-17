@@ -27,54 +27,42 @@ export function run(
     }
   }
 
-  while (true) {
-    if (pointer >= program.length) {
-      break;
-    }
-
+  while (pointer < program.length) {
     const instr = program[pointer];
     const literal = program[pointer + 1];
 
     switch (instr) {
       case 0n: {
-        // adv
         A = (A / 2n ** getCombo(literal)) | 0n;
         break;
       }
       case 1n: {
-        //bxl
         B = B ^ literal;
         break;
       }
       case 2n: {
-        //bst
         B = getCombo(literal) % 8n;
         break;
       }
       case 3n: {
-        // jnz
         if (A !== 0n) {
           pointer = Number(literal) - 2;
         }
         break;
       }
       case 4n: {
-        //bxc
         B = B ^ C;
         break;
       }
       case 5n: {
-        //out
         out.push(getCombo(literal) % 8n);
         break;
       }
       case 6n: {
-        // bdv
         B = (A / 2n ** getCombo(literal)) | 0n;
         break;
       }
       case 7n: {
-        // cdv
         C = (A / 2n ** getCombo(literal)) | 0n;
         break;
       }

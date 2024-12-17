@@ -42,7 +42,7 @@ Run part A or B
 14. 💫️💫️💫️🌑️🌑️ Infinitely moving robots in a 2D grid with a cycling pattern that sometimes ends up creating a picture of a christmas tree.
 15. 💫️💫️💫️🌑️🌑️ Predicting a robots position in a 2D warehouse grid. The robot is capable of moving multi cell objects.
 16. 💫️💫️💫️💫️🌑️ Finding all possible paths in a 2D grid where turning is 1000x more expensive than going straight.
-17.
+17. 💫️💫️💫️💫️💫️ Intcode computer with a catch: find an input that turns the program output into itself
 18.
 19.
 20.
