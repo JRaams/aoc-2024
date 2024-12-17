@@ -1,29 +1,26 @@
 export function run(
-  A: number,
-  B: number,
-  C: number,
-  program: number[]
-): { A: number; B: Number; C: Number; out: number[] } {
-  const out: number[] = [];
+  A: bigint,
+  B: bigint,
+  C: bigint,
+  program: bigint[]
+): { A: bigint; B: bigint; C: bigint; out: bigint[] } {
+  const out: bigint[] = [];
   let pointer = 0;
 
-  function getCombo(operand: number): number {
+  function getCombo(operand: bigint): bigint {
     switch (operand) {
-      case 0:
-        return 0;
-      case 1:
-        return 1;
-      case 2:
-        return 2;
-      case 3:
-        return 3;
-      case 4:
+      case 0n:
+      case 1n:
+      case 2n:
+      case 3n:
+        return operand;
+      case 4n:
         return A;
-      case 5:
+      case 5n:
         return B;
-      case 6:
+      case 6n:
         return C;
-      case 7:
+      case 7n:
         throw new Error("Combo operand 7 is reserved");
       default:
         throw new Error("Unknown combo operand: " + operand);
@@ -39,46 +36,46 @@ export function run(
     const literal = program[pointer + 1];
 
     switch (instr) {
-      case 0: {
+      case 0n: {
         // adv
-        A = (A / Math.pow(2, getCombo(literal))) | 0;
+        A = (A / 2n ** getCombo(literal)) | 0n;
         break;
       }
-      case 1: {
+      case 1n: {
         //bxl
         B = B ^ literal;
         break;
       }
-      case 2: {
+      case 2n: {
         //bst
-        B = getCombo(literal) % 8;
+        B = getCombo(literal) % 8n;
         break;
       }
-      case 3: {
+      case 3n: {
         // jnz
-        if (A !== 0) {
-          pointer = literal - 2;
+        if (A !== 0n) {
+          pointer = Number(literal) - 2;
         }
         break;
       }
-      case 4: {
+      case 4n: {
         //bxc
         B = B ^ C;
         break;
       }
-      case 5: {
+      case 5n: {
         //out
-        out.push(getCombo(literal) % 8);
+        out.push(getCombo(literal) % 8n);
         break;
       }
-      case 6: {
+      case 6n: {
         // bdv
-        B = (A / Math.pow(2, getCombo(literal))) | 0;
+        B = (A / 2n ** getCombo(literal)) | 0n;
         break;
       }
-      case 7: {
+      case 7n: {
         // cdv
-        C = (A / Math.pow(2, getCombo(literal))) | 0;
+        C = (A / 2n ** getCombo(literal)) | 0n;
         break;
       }
       default:
