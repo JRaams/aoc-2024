@@ -43,7 +43,7 @@ Run part A or B
 15. 💫️💫️💫️🌑️🌑️ Predicting a robots position in a 2D warehouse grid. The robot is capable of moving multi cell objects.
 16. 💫️💫️💫️💫️🌑️ Finding all possible paths in a 2D grid where turning is 1000x more expensive than going straight.
 17. 💫️💫️💫️💫️💫️ Intcode computer with a catch: find an input that turns the program output into itself
-18.
+18. 💫️💫️💫️🌑️🌑️ Pathfinding in a 2D grid where more and more obstacles get added.
 19.
 20.
 21.
