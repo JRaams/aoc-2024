@@ -28,8 +28,14 @@ function waysToMake(
   return result;
 }
 
-const ways = designs
-  .map((design) => waysToMake(design, patterns, new Map()))
-  .reduce((a, b) => a + b, 0);
+let a = 0;
+let b = 0;
 
-console.log(ways);
+designs.forEach((design) => {
+  const ways = waysToMake(design, patterns, new Map());
+  if (ways > 0) a++;
+  b += ways;
+});
+
+console.log("a", a);
+console.log("b", b);
