@@ -3,12 +3,13 @@ const lines = await Bun.file(__dirname + "/input.txt").text();
 const [patternsRaw, designsRaw] = lines.trim().split("\n\n");
 
 const patterns = patternsRaw.trim().split(", ");
+patterns.sort((a, b) => a.length - b.length);
 const designs = designsRaw.split("\n").map((x) => x.trim());
 
 let possible = 0;
 
 designs.forEach((d) => {
-  let queue: string[] = [d];
+  const queue: string[] = [d];
 
   while (queue.length) {
     const design = queue.pop()!;
@@ -23,7 +24,6 @@ designs.forEach((d) => {
       if (index !== 0) continue;
 
       const newDesign = design.replace(p, "");
-      if (newDesign === design) continue;
       queue.push(newDesign);
     }
   }
