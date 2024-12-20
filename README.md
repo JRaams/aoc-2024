@@ -45,7 +45,7 @@ Run part A or B
 17. 💫️💫️💫️💫️💫️ Intcode computer with a catch: find an input that turns the program output into itself
 18. 💫️💫️💫️🌑️🌑️ Pathfinding in a 2D grid where more and more obstacles get added.
 19. 💫️💫️💫️🌑️🌑️ Find all ways to arrange towels using unlimited amounts of colored stripe patterns.
-20.
+20. 💫️💫️💫️💫️🌑️ Find all ways of cheating to save at least 100 steps in a 2D grid maze
 21.
 22.
 23.
