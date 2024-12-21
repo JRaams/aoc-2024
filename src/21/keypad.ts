@@ -83,25 +83,3 @@ export function buildDirectionalMap(): KeypadMap {
 
   return directionalMap;
 }
-
-export function getNumericSeqs(doorCode: string, map: KeypadMap): string[] {
-  const result: string[] = [];
-
-  const queue: [string, string, string][] = [["A", doorCode, ""]];
-
-  while (queue.length) {
-    const [current, str, path] = queue.shift()!;
-    if (str.length === 0) {
-      result.push(path);
-      continue;
-    }
-    const char = str[0];
-
-    const options = map[current][char];
-    options.forEach((o) => {
-      queue.push([char, str.slice(1), path + o + "A"]);
-    });
-  }
-
-  return result;
-}
