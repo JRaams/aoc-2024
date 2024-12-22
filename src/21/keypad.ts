@@ -14,10 +14,7 @@ const directions: (string | undefined)[][] = [
   ["<", "v", ">"],
 ];
 
-function buildKeypadMap(
-  keys: (string | undefined)[][],
-  pathSuffix: string
-): KeypadMap {
+function buildKeypadMap(keys: (string | undefined)[][]): KeypadMap {
   const map: KeypadMap = {};
 
   for (let y = 0; y < keys.length; y++) {
@@ -39,7 +36,7 @@ function buildKeypadMap(
 
         const nc = keys[ny][nx];
         if (map[c][nc] === undefined) map[c][nc] = [];
-        map[c][nc].push(path + pathSuffix);
+        map[c][nc].push(path + "A");
 
         queue.push([ny + 1, nx, cost + 1, path + "v"]);
         queue.push([ny - 1, nx, cost + 1, path + "^"]);
@@ -53,9 +50,9 @@ function buildKeypadMap(
 }
 
 export function buildNumericalMap() {
-  return buildKeypadMap(numericals, "");
+  return buildKeypadMap(numericals);
 }
 
 export function buildDirectionalMap() {
-  return buildKeypadMap(directions, "A");
+  return buildKeypadMap(directions);
 }

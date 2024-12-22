@@ -27,7 +27,7 @@ function getNumericSeqs(doorCode: string, map: KeypadMap): string[] {
 
     const options = map[currentButton][newButton];
     options.forEach((option) => {
-      queue.push([newButton, remainingCode.slice(1), path + option + "A"]);
+      queue.push([newButton, remainingCode.slice(1), path + option]);
     });
   }
 

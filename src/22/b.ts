@@ -1,73 +1,35 @@
 const __dirname = new URL(".", import.meta.url).pathname;
 const lines = await Bun.file(__dirname + "/input.txt").text();
-const input = lines.trim().split("\n").map(Number);
+const input = lines.trim().split("\n").map(BigInt);
 
-const changeLists: number[][] = [];
-const onesLists: number[][] = [];
+const seqBananas = new Map<string, number>();
 
-input.forEach((s) => {
-  let secret = BigInt(s);
-  const currentChanges: number[] = [];
-  const currentValues: number[] = [];
-  let last = Number(s.toString().at(-1));
+input.forEach((secret) => {
+  const prices: bigint[] = [secret % 10n];
+  const diffs: number[] = [];
 
   for (let i = 0; i < 2000; i++) {
-    let a = secret * 64n;
-    secret = secret ^ a;
-    secret = secret % 16777216n;
+    secret ^= (secret * 64n) % 16777216n;
+    secret ^= (secret / 32n) % 16777216n;
+    secret ^= (secret * 2048n) % 16777216n;
 
-    let b = secret / 32n;
-    secret = secret ^ b;
-    secret = secret % 16777216n;
+    const last = prices.at(-1)!;
+    const next = secret % 10n;
 
-    let c = secret * 2048n;
-    secret = secret ^ c;
-    secret = secret % 16777216n;
-
-    const ones = Number(secret.toString().at(-1));
-    currentChanges.push(ones - last);
-    currentValues.push(ones);
-    last = ones;
+    diffs.push(Number(next - last));
+    prices.push(next);
   }
 
-  changeLists.push(currentChanges);
-  onesLists.push(currentValues);
-});
+  const seen = new Set<string>();
+  for (let i = 4; i < diffs.length; i++) {
+    const seq = `${diffs[i - 3]},${diffs[i - 2]},${diffs[i - 1]},${diffs[i]}`;
 
-const seqs = new Set<string>();
+    if (seen.has(seq)) continue;
+    seen.add(seq);
 
-changeLists.forEach((c) => {
-  for (let i = 4; i < c.length; i++) {
-    let c1 = c[i - 3];
-    let c2 = c[i - 2];
-    let c3 = c[i - 1];
-    let c4 = c[i];
-    seqs.add(`${c1},${c2},${c3},${c4}`);
+    const bananas = seqBananas.get(seq) || 0;
+    seqBananas.set(seq, bananas + Number(prices[i + 1]));
   }
 });
 
-let bananas = 0;
-
-seqs.values().forEach((seq) => {
-  const [a, b, c, d] = seq.split(",").map(Number);
-
-  let current = 0;
-
-  changeLists.forEach((changeList, changeIndex) => {
-    for (let i = 4; i < changeList.length; i++) {
-      if (
-        changeList[i - 3] === a &&
-        changeList[i - 2] === b &&
-        changeList[i - 1] === c &&
-        changeList[i] === d
-      ) {
-        current += onesLists[changeIndex][i];
-        break;
-      }
-    }
-  });
-
-  bananas = Math.max(bananas, current);
-});
-
-console.log(bananas);
+console.log(Math.max(...seqBananas.values()));

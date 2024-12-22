@@ -47,7 +47,7 @@ Run part A or B
 19. 💫️💫️💫️🌑️🌑️ Find all ways to arrange towels using unlimited amounts of colored stripe patterns.
 20. 💫️💫️💫️💫️🌑️ Find all ways of cheating to save at least 100 steps in a 2D grid maze
 21. 💫️💫️💫️💫️💫️ Find recursive keypad movement sequences (^>v<A) to enter a door code.
-22.
+22. 💫️💫️💫️🌑️🌑️ Calculate banana prices according to bitwise monkey rules.
 23.
 24.
 25.
