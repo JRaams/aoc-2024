@@ -48,6 +48,6 @@ Run part A or B
 20. 💫️💫️💫️💫️🌑️ Find all ways of cheating to save at least 100 steps in a 2D grid maze
 21. 💫️💫️💫️💫️💫️ Find recursive keypad movement sequences (^>v<A) to enter a door code.
 22. 💫️💫️💫️🌑️🌑️ Calculate banana prices according to bitwise monkey rules.
-23.
+23. 💫️💫️💫️🌑️🌑️ Find the largest connected group of nodes in a graph.
 24.
 25.

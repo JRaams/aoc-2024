@@ -2,18 +2,6 @@ import { defaultDict } from "../../helpers/defaultdict";
 
 export type KeypadMap = Record<string, Record<string, string[]>>;
 
-const numericals: (string | undefined)[][] = [
-  ["7", "8", "9"],
-  ["4", "5", "6"],
-  ["1", "2", "3"],
-  [undefined, "0", "A"],
-];
-
-const directions: (string | undefined)[][] = [
-  [undefined, "^", "A"],
-  ["<", "v", ">"],
-];
-
 function buildKeypadMap(keys: (string | undefined)[][]): KeypadMap {
   const map: KeypadMap = {};
 
@@ -50,9 +38,17 @@ function buildKeypadMap(keys: (string | undefined)[][]): KeypadMap {
 }
 
 export function buildNumericalMap() {
-  return buildKeypadMap(numericals);
+  return buildKeypadMap([
+    ["7", "8", "9"],
+    ["4", "5", "6"],
+    ["1", "2", "3"],
+    [undefined, "0", "A"],
+  ]);
 }
 
 export function buildDirectionalMap() {
-  return buildKeypadMap(directions);
+  return buildKeypadMap([
+    [undefined, "^", "A"],
+    ["<", "v", ">"],
+  ]);
 }
