@@ -49,5 +49,5 @@ Run part A or B
 21. 💫️💫️💫️💫️💫️ Find recursive keypad movement sequences (^>v<A) to enter a door code.
 22. 💫️💫️💫️🌑️🌑️ Calculate banana prices according to bitwise monkey rules.
 23. 💫️💫️💫️🌑️🌑️ Find the largest connected group of nodes in a graph.
-24.
+24. 💫️💫️💫️💫️💫️ Gate / wire simulation, find out which 4 pairs of wire have been swapped.
 25.
