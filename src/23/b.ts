@@ -1,23 +1,22 @@
+import { defaultDict } from "../../helpers/defaultdict";
+
 const __dirname = new URL(".", import.meta.url).pathname;
 const text = await Bun.file(__dirname + "/input.txt").text();
 const lines = text.trim().split("\n");
 
-const connections = new Map<string, Set<string>>();
+const connections = defaultDict(() => new Set<string>());
 
 lines.forEach((line) => {
   const [a, b] = line.split("-");
 
-  if (!connections.has(a)) connections.set(a, new Set());
-  if (!connections.has(b)) connections.set(b, new Set());
-
-  connections.get(a)?.add(b);
-  connections.get(b)?.add(a);
+  connections[a].add(b);
+  connections[b].add(a);
 });
 
 let longest = 0;
 let answer = "";
 
-const queue: string[] = [...connections.keys()];
+const queue: string[] = [...Object.keys(connections)];
 const seen = new Set<string>();
 
 q: while (queue.length) {
@@ -32,7 +31,7 @@ q: while (queue.length) {
     for (let j = i + 1; j < names.length; j++) {
       const n1 = names[i];
       const n2 = names[j];
-      if (!connections.get(n1)?.has(n2) || !connections.get(n2)?.has(n1)) {
+      if (!connections[n1].has(n2) || !connections[n2].has(n1)) {
         continue q;
       }
     }
@@ -44,7 +43,7 @@ q: while (queue.length) {
   }
 
   names.forEach((name) => {
-    connections.get(name)?.forEach((name2) => {
+    connections[name].forEach((name2) => {
       if (names.includes(name2)) return;
 
       const copy = names.slice();
